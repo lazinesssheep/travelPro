@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.UserDao">
+
+    <resultMap id="userResultMap" type="com.lazinesssheep.travel.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <select id="getOne" parameterType="com.lazinesssheep.travel.entity.User" resultMap="userResultMap">
+        select * from t_user WHERE `STATUS` = '1'
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+
+        <if test="password != null and password != ''">
+            AND  password = #{password}
+        </if>
+
+        <if test="email != null and email != ''">
+            email = #{email}
+        </if>
+    </select>
+
+    <update id="update" parameterType="com.lazinesssheep.travel.entity.User">
+        UPDATE t_user
+        SET password = #{password},
+        UPDATE_TIME = NOW()
+        WHERE
+        `STATUS` = '1'
+        AND username = #{username}
+    </update>
+
+    <insert id="insert" parameterType="com.lazinesssheep.travel.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user (
+        username, password, email,
+        CREATE_TIME,UPDATE_TIME
+        )
+        VALUES
+        (#{username},#{password},#{email},
+        now(),now()
+        )
+    </insert>
+
+
+</mapper>
+

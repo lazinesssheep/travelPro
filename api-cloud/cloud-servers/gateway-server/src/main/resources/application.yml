@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      routes:
+      - id: travel-server
+        uri: lb://travel-server
+        predicates:
+        - Path=/travel/**
+        filters:
+        - StripPrefix=1
+server:
+  port: 8710
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8700/eureka/

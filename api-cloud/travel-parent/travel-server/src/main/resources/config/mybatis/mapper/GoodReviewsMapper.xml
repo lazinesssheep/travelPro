@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodReviewsDao">
+
+    <resultMap id="goodReviewsResultMap" type="com.lazinesssheep.travel.entity.dto.GoodReviews">
+        <id column="id" property="id"/> 
+        <result column="goodId" property="goodId"/> 
+        <result column="content" property="content"/> 
+        <result column="reviewTime" property="reviewTime"/> 
+        <result column="supportNum" property="supportNum"/> 
+        <result column="unSupportNum" property="unSupportNum"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodReviewsColumns">
+        t_good_reviews.id AS "id",
+        t_good_reviews.good_id AS "goodId",
+        t_good_reviews.content AS "content",
+        t_good_reviews.review_time AS "reviewTime",
+        t_good_reviews.support_num AS "supportNum",
+        t_good_reviews.un_support_num AS "unSupportNum",
+        t_good_reviews.status AS "status",
+        t_good_reviews.create_time AS "createTime",
+        t_good_reviews.create_userid AS "createUserid",
+        t_good_reviews.update_time AS "updateTime",
+        t_good_reviews.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodReviewsJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodReviewsResultMap">
+        SELECT
+        <include refid="goodReviewsColumns" />
+        FROM t_good_reviews <include refid="goodReviewsJoins" />
+        <where>
+        t_good_reviews.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodReviewsResultMap">
+        SELECT
+        <include refid="goodReviewsColumns" />
+        FROM t_good_reviews <include refid="goodReviewsJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodReviewsResultMap">
+        SELECT
+        <include refid="goodReviewsColumns" />
+        FROM t_good_reviews <include refid="goodReviewsJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good_reviews(
+            id,
+            good_id,
+            content,
+            review_time,
+            support_num,
+            un_support_num,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{goodId},
+            #{content},
+            #{reviewTime},
+            #{supportNum},
+            #{unSupportNum},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good_reviews(
+            id,
+            good_id,
+            content,
+            review_time,
+            support_num,
+            un_support_num,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="goodReviews" separator =",">
+        (
+            #{goodReviews.id},
+            #{goodReviews.goodId},
+            #{goodReviews.content},
+            #{goodReviews.reviewTime},
+            #{goodReviews.supportNum},
+            #{goodReviews.unSupportNum},
+            #{goodReviews.status},
+            #{goodReviews.createTime},
+            #{goodReviews.createUserid},
+            #{goodReviews.updateTime},
+            #{goodReviews.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good_reviews SET
+        id = #{id},
+        good_id = #{goodId},
+        content = #{content},
+        review_time = #{reviewTime},
+        support_num = #{supportNum},
+        un_support_num = #{unSupportNum},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good_reviews
+        WHERE id = #{id}
+    </update>
+
+</mapper>

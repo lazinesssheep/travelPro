@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.OrderDao">
+
+    <resultMap id="orderResultMap" type="com.lazinesssheep.travel.entity.dto.Order">
+        <id column="id" property="id"/> 
+        <result column="goodId" property="goodId"/> 
+        <result column="goodOrderId" property="goodOrderId"/> 
+        <result column="orderNo" property="orderNo"/> 
+        <result column="Address" property="Address"/> 
+        <result column="City" property="City"/> 
+        <result column="Postal" property="Postal"/> 
+        <result column="Province" property="Province"/> 
+        <result column="orderTime" property="orderTime"/> 
+        <result column="orderStatus" property="orderStatus"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="orderColumns">
+        t_order.id AS "id",
+        t_order.good_id AS "goodId",
+        t_order.good_order_id AS "goodOrderId",
+        t_order.order_no AS "orderNo",
+        t_order.Address AS "Address",
+        t_order.City AS "City",
+        t_order.Postal AS "Postal",
+        t_order.Province AS "Province",
+        t_order.order_time AS "orderTime",
+        t_order.order_status AS "orderStatus",
+        t_order.status AS "status",
+        t_order.create_time AS "createTime",
+        t_order.create_userid AS "createUserid",
+        t_order.update_time AS "updateTime",
+        t_order.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="orderJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="orderResultMap">
+        SELECT
+        <include refid="orderColumns" />
+        FROM t_order <include refid="orderJoins" />
+        <where>
+        t_order.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="orderResultMap">
+        SELECT
+        <include refid="orderColumns" />
+        FROM t_order <include refid="orderJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="orderResultMap">
+        SELECT
+        <include refid="orderColumns" />
+        FROM t_order <include refid="orderJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_order(
+            id,
+            good_id,
+            good_order_id,
+            order_no,
+            Address,
+            City,
+            Postal,
+            Province,
+            order_time,
+            order_status,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{goodId},
+            #{goodOrderId},
+            #{orderNo},
+            #{Address},
+            #{City},
+            #{Postal},
+            #{Province},
+            #{orderTime},
+            #{orderStatus},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_order(
+            id,
+            good_id,
+            good_order_id,
+            order_no,
+            Address,
+            City,
+            Postal,
+            Province,
+            order_time,
+            order_status,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="order" separator =",">
+        (
+            #{order.id},
+            #{order.goodId},
+            #{order.goodOrderId},
+            #{order.orderNo},
+            #{order.Address},
+            #{order.City},
+            #{order.Postal},
+            #{order.Province},
+            #{order.orderTime},
+            #{order.orderStatus},
+            #{order.status},
+            #{order.createTime},
+            #{order.createUserid},
+            #{order.updateTime},
+            #{order.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_order SET
+        id = #{id},
+        good_id = #{goodId},
+        good_order_id = #{goodOrderId},
+        order_no = #{orderNo},
+        Address = #{Address},
+        City = #{City},
+        Postal = #{Postal},
+        Province = #{Province},
+        order_time = #{orderTime},
+        order_status = #{orderStatus},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_order
+        WHERE id = #{id}
+    </update>
+
+</mapper>

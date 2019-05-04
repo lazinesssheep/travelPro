@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: travel-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/travel?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+    initial-size: 50
+    max-active: 300
+    min-idle: 20
+    max-wait: 6000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      timeout: 3600
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 9
+          max-wait: 1000
+          min-idle: 0
+          shutdown-timeout: 100
+server:
+  port: 9000
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8700/eureka/
+mybatis:
+  configLocation: classpath:config/mybatis/mybatis-config.xml
+  mapperLocations: classpath:config/mybatis/mapper/**/*.xml

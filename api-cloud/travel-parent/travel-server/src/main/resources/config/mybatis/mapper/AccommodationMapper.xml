@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.AccommodationDao">
+
+    <resultMap id="accommodationResultMap" type="com.lazinesssheep.travel.entity.dto.Accommodation">
+        <id column="id" property="id"/> 
+        <result column="name" property="name"/> 
+        <result column="url" property="url"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+    </resultMap>
+
+    <sql id="accommodationColumns">
+        t_accommodation.id AS "id",
+        t_accommodation.name AS "name",
+        t_accommodation.url AS "url",
+        t_accommodation.status AS "status",
+        t_accommodation.create_time AS "createTime",
+        t_accommodation.create_userid AS "createUserid",
+        t_accommodation.update_time AS "updateTime",
+        t_accommodation.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="accommodationJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="accommodationResultMap">
+        SELECT
+        <include refid="accommodationColumns" />
+        FROM t_accommodation <include refid="accommodationJoins" />
+        <where>
+        t_accommodation.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="accommodationResultMap">
+        SELECT
+        <include refid="accommodationColumns" />
+        FROM t_accommodation <include refid="accommodationJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="accommodationResultMap">
+        SELECT
+        <include refid="accommodationColumns" />
+        FROM t_accommodation <include refid="accommodationJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_accommodation(
+            id,
+            name,
+            url,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{url},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_accommodation(
+            id,
+            name,
+            url,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="accommodation" separator =",">
+        (
+            #{accommodation.id},
+            #{accommodation.name},
+            #{accommodation.url},
+            #{accommodation.status},
+            #{accommodation.createTime},
+            #{accommodation.createUserid},
+            #{accommodation.updateTime},
+            #{accommodation.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_accommodation SET
+        id = #{id},
+        name = #{name},
+        url = #{url},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_accommodation
+        WHERE id = #{id}
+    </update>
+
+</mapper>

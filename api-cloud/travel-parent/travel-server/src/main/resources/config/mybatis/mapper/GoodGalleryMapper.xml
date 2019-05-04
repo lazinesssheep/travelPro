@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodGalleryDao">
+
+    <resultMap id="goodGalleryResultMap" type="com.lazinesssheep.travel.entity.GoodGallery">
+        <id column="id" property="id"/> 
+        <result column="goodId" property="goodId"/> 
+        <result column="galleryUrl" property="galleryUrl"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodGalleryColumns">
+        t_good_gallery.id AS "id",
+        t_good_gallery.good_id AS "goodId",
+        t_good_gallery.gallery_url AS "galleryUrl",
+        t_good_gallery.status AS "status",
+        t_good_gallery.create_time AS "createTime",
+        t_good_gallery.create_userid AS "createUserid",
+        t_good_gallery.update_time AS "updateTime",
+        t_good_gallery.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodGalleryJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodGalleryResultMap">
+        SELECT
+        <include refid="goodGalleryColumns" />
+        FROM t_good_gallery <include refid="goodGalleryJoins" />
+        <where>
+        t_good_gallery.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodGalleryResultMap">
+        SELECT
+        <include refid="goodGalleryColumns" />
+        FROM t_good_gallery <include refid="goodGalleryJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodGalleryResultMap">
+        SELECT
+        <include refid="goodGalleryColumns" />
+        FROM t_good_gallery <include refid="goodGalleryJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good_gallery(
+            id,
+            good_id,
+            gallery_url,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{goodId},
+            #{galleryUrl},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good_gallery(
+            id,
+            good_id,
+            gallery_url,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="goodGallery" separator =",">
+        (
+            #{goodGallery.id},
+            #{goodGallery.goodId},
+            #{goodGallery.galleryUrl},
+            #{goodGallery.status},
+            #{goodGallery.createTime},
+            #{goodGallery.createUserid},
+            #{goodGallery.updateTime},
+            #{goodGallery.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good_gallery SET
+        id = #{id},
+        good_id = #{goodId},
+        gallery_url = #{galleryUrl},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good_gallery
+        WHERE id = #{id}
+    </update>
+
+</mapper>

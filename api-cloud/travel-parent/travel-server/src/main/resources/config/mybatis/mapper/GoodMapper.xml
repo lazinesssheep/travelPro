@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodDao">
+
+    <resultMap id="goodResultMap" type="com.lazinesssheep.travel.entity.Good">
+        <id column="id" property="id"/> 
+        <result column="title" property="title"/> 
+        <result column="desc" property="desc"/> 
+        <result column="address" property="address"/> 
+        <result column="startingPoint" property="startingPoint"/> 
+        <result column="endingPoint" property="endingPoint"/> 
+        <result column="duration" property="duration"/> 
+        <result column="highlights" property="highlights"/> 
+        <result column="state" property="state"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodColumns">
+        t_good.id AS "id",
+        t_good.title AS "title",
+        t_good.desc AS "desc",
+        t_good.address AS "address",
+        t_good.starting_point AS "startingPoint",
+        t_good.ending_point AS "endingPoint",
+        t_good.duration AS "duration",
+        t_good.highlights AS "highlights",
+        t_good.state AS "state",
+        t_good.status AS "status",
+        t_good.create_time AS "createTime",
+        t_good.create_userid AS "createUserid",
+        t_good.update_time AS "updateTime",
+        t_good.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodResultMap">
+        SELECT
+        <include refid="goodColumns" />
+        FROM t_good <include refid="goodJoins" />
+        <where>
+        t_good.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodResultMap">
+        SELECT
+        <include refid="goodColumns" />
+        FROM t_good <include refid="goodJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodResultMap">
+        SELECT
+        <include refid="goodColumns" />
+        FROM t_good <include refid="goodJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good(
+            id,
+            title,
+            desc,
+            address,
+            starting_point,
+            ending_point,
+            duration,
+            highlights,
+            state,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{title},
+            #{desc},
+            #{address},
+            #{startingPoint},
+            #{endingPoint},
+            #{duration},
+            #{highlights},
+            #{state},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good(
+            id,
+            title,
+            desc,
+            address,
+            starting_point,
+            ending_point,
+            duration,
+            highlights,
+            state,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="good" separator =",">
+        (
+            #{good.id},
+            #{good.title},
+            #{good.desc},
+            #{good.address},
+            #{good.startingPoint},
+            #{good.endingPoint},
+            #{good.duration},
+            #{good.highlights},
+            #{good.state},
+            #{good.status},
+            #{good.createTime},
+            #{good.createUserid},
+            #{good.updateTime},
+            #{good.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good SET
+        id = #{id},
+        title = #{title},
+        desc = #{desc},
+        address = #{address},
+        starting_point = #{startingPoint},
+        ending_point = #{endingPoint},
+        duration = #{duration},
+        highlights = #{highlights},
+        state = #{state},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good
+        WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodItineraryDayDao">
+
+    <resultMap id="goodItineraryDayResultMap" type="com.lazinesssheep.travel.entity.dto.GoodItineraryDay">
+        <id column="id" property="id"/> 
+        <result column="itineraryId" property="itineraryId"/> 
+        <result column="accommodationId" property="accommodationId"/> 
+        <result column="content" property="content"/> 
+        <result column="startingTime" property="startingTime"/> 
+        <result column="endingTime" property="endingTime"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodItineraryDayColumns">
+        t_good_itinerary_day.id AS "id",
+        t_good_itinerary_day.itinerary_id AS "itineraryId",
+        t_good_itinerary_day.accommodation_id AS "accommodationId",
+        t_good_itinerary_day.content AS "content",
+        t_good_itinerary_day.starting_time AS "startingTime",
+        t_good_itinerary_day.ending_time AS "endingTime",
+        t_good_itinerary_day.status AS "status",
+        t_good_itinerary_day.create_time AS "createTime",
+        t_good_itinerary_day.create_userid AS "createUserid",
+        t_good_itinerary_day.update_time AS "updateTime",
+        t_good_itinerary_day.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodItineraryDayJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodItineraryDayResultMap">
+        SELECT
+        <include refid="goodItineraryDayColumns" />
+        FROM t_good_itinerary_day <include refid="goodItineraryDayJoins" />
+        <where>
+        t_good_itinerary_day.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodItineraryDayResultMap">
+        SELECT
+        <include refid="goodItineraryDayColumns" />
+        FROM t_good_itinerary_day <include refid="goodItineraryDayJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodItineraryDayResultMap">
+        SELECT
+        <include refid="goodItineraryDayColumns" />
+        FROM t_good_itinerary_day <include refid="goodItineraryDayJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good_itinerary_day(
+            id,
+            itinerary_id,
+            accommodation_id,
+            content,
+            starting_time,
+            ending_time,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{itineraryId},
+            #{accommodationId},
+            #{content},
+            #{startingTime},
+            #{endingTime},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good_itinerary_day(
+            id,
+            itinerary_id,
+            accommodation_id,
+            content,
+            starting_time,
+            ending_time,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="goodItineraryDay" separator =",">
+        (
+            #{goodItineraryDay.id},
+            #{goodItineraryDay.itineraryId},
+            #{goodItineraryDay.accommodationId},
+            #{goodItineraryDay.content},
+            #{goodItineraryDay.startingTime},
+            #{goodItineraryDay.endingTime},
+            #{goodItineraryDay.status},
+            #{goodItineraryDay.createTime},
+            #{goodItineraryDay.createUserid},
+            #{goodItineraryDay.updateTime},
+            #{goodItineraryDay.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good_itinerary_day SET
+        id = #{id},
+        itinerary_id = #{itineraryId},
+        accommodation_id = #{accommodationId},
+        content = #{content},
+        starting_time = #{startingTime},
+        ending_time = #{endingTime},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good_itinerary_day
+        WHERE id = #{id}
+    </update>
+
+</mapper>

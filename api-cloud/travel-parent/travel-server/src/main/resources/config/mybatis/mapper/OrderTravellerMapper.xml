@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.OrderTravellerDao">
+
+    <resultMap id="orderTravellerResultMap" type="com.lazinesssheep.travel.entity.dto.OrderTraveller">
+        <id column="id" property="id"/> 
+        <result column="orderId" property="orderId"/> 
+        <result column="surname" property="surname"/> 
+        <result column="name" property="name"/> 
+        <result column="sex" property="sex"/> 
+        <result column="age" property="age"/> 
+        <result column="email" property="email"/> 
+        <result column="phone" property="phone"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="orderTravellerColumns">
+        t_order_traveller.id AS "id",
+        t_order_traveller.order_id AS "orderId",
+        t_order_traveller.surname AS "surname",
+        t_order_traveller.name AS "name",
+        t_order_traveller.sex AS "sex",
+        t_order_traveller.age AS "age",
+        t_order_traveller.email AS "email",
+        t_order_traveller.phone AS "phone",
+        t_order_traveller.status AS "status",
+        t_order_traveller.create_time AS "createTime",
+        t_order_traveller.create_userid AS "createUserid",
+        t_order_traveller.update_time AS "updateTime",
+        t_order_traveller.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="orderTravellerJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="orderTravellerResultMap">
+        SELECT
+        <include refid="orderTravellerColumns" />
+        FROM t_order_traveller <include refid="orderTravellerJoins" />
+        <where>
+        t_order_traveller.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="orderTravellerResultMap">
+        SELECT
+        <include refid="orderTravellerColumns" />
+        FROM t_order_traveller <include refid="orderTravellerJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="orderTravellerResultMap">
+        SELECT
+        <include refid="orderTravellerColumns" />
+        FROM t_order_traveller <include refid="orderTravellerJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_order_traveller(
+            id,
+            order_id,
+            surname,
+            name,
+            sex,
+            age,
+            email,
+            phone,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{orderId},
+            #{surname},
+            #{name},
+            #{sex},
+            #{age},
+            #{email},
+            #{phone},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_order_traveller(
+            id,
+            order_id,
+            surname,
+            name,
+            sex,
+            age,
+            email,
+            phone,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="orderTraveller" separator =",">
+        (
+            #{orderTraveller.id},
+            #{orderTraveller.orderId},
+            #{orderTraveller.surname},
+            #{orderTraveller.name},
+            #{orderTraveller.sex},
+            #{orderTraveller.age},
+            #{orderTraveller.email},
+            #{orderTraveller.phone},
+            #{orderTraveller.status},
+            #{orderTraveller.createTime},
+            #{orderTraveller.createUserid},
+            #{orderTraveller.updateTime},
+            #{orderTraveller.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_order_traveller SET
+        id = #{id},
+        order_id = #{orderId},
+        surname = #{surname},
+        name = #{name},
+        sex = #{sex},
+        age = #{age},
+        email = #{email},
+        phone = #{phone},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_order_traveller
+        WHERE id = #{id}
+    </update>
+
+</mapper>

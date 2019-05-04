@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodIncludedDao">
+
+    <resultMap id="goodIncludedResultMap" type="com.lazinesssheep.travel.entity.dto.GoodIncluded">
+        <id column="id" property="id"/> 
+        <result column="goodId" property="goodId"/> 
+        <result column="title" property="title"/> 
+        <result column="desc" property="desc"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodIncludedColumns">
+        t_good_included.id AS "id",
+        t_good_included.good_id AS "goodId",
+        t_good_included.title AS "title",
+        t_good_included.desc AS "desc",
+        t_good_included.status AS "status",
+        t_good_included.create_time AS "createTime",
+        t_good_included.create_userid AS "createUserid",
+        t_good_included.update_time AS "updateTime",
+        t_good_included.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodIncludedJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodIncludedResultMap">
+        SELECT
+        <include refid="goodIncludedColumns" />
+        FROM t_good_included <include refid="goodIncludedJoins" />
+        <where>
+        t_good_included.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodIncludedResultMap">
+        SELECT
+        <include refid="goodIncludedColumns" />
+        FROM t_good_included <include refid="goodIncludedJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodIncludedResultMap">
+        SELECT
+        <include refid="goodIncludedColumns" />
+        FROM t_good_included <include refid="goodIncludedJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good_included(
+            id,
+            good_id,
+            title,
+            desc,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{goodId},
+            #{title},
+            #{desc},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good_included(
+            id,
+            good_id,
+            title,
+            desc,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="goodIncluded" separator =",">
+        (
+            #{goodIncluded.id},
+            #{goodIncluded.goodId},
+            #{goodIncluded.title},
+            #{goodIncluded.desc},
+            #{goodIncluded.status},
+            #{goodIncluded.createTime},
+            #{goodIncluded.createUserid},
+            #{goodIncluded.updateTime},
+            #{goodIncluded.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good_included SET
+        id = #{id},
+        good_id = #{goodId},
+        title = #{title},
+        desc = #{desc},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good_included
+        WHERE id = #{id}
+    </update>
+
+</mapper>

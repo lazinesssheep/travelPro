@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.ManagerDao">
+
+    <resultMap id="managerResultMap" type="com.lazinesssheep.travel.entity.Manager">
+        <id column="id" property="id"/> 
+        <result column="username" property="username"/> 
+        <result column="password" property="password"/> 
+        <result column="state" property="state"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="managerColumns">
+        t_manager.id AS "id",
+        t_manager.username AS "username",
+        t_manager.password AS "password",
+        t_manager.state AS "state",
+        t_manager.status AS "status",
+        t_manager.create_time AS "createTime",
+        t_manager.create_userid AS "createUserid",
+        t_manager.update_time AS "updateTime",
+        t_manager.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="managerJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="managerResultMap">
+        SELECT
+        <include refid="managerColumns" />
+        FROM t_manager <include refid="managerJoins" />
+        <where>
+        t_manager.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="managerResultMap">
+        SELECT
+        <include refid="managerColumns" />
+        FROM t_manager <include refid="managerJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="managerResultMap">
+        SELECT
+        <include refid="managerColumns" />
+        FROM t_manager <include refid="managerJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_manager(
+            id,
+            username,
+            password,
+            state,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{username},
+            #{password},
+            #{state},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_manager(
+            id,
+            username,
+            password,
+            state,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="manager" separator =",">
+        (
+            #{manager.id},
+            #{manager.username},
+            #{manager.password},
+            #{manager.state},
+            #{manager.status},
+            #{manager.createTime},
+            #{manager.createUserid},
+            #{manager.updateTime},
+            #{manager.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_manager SET
+        id = #{id},
+        username = #{username},
+        password = #{password},
+        state = #{state},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_manager
+        WHERE id = #{id}
+    </update>
+
+</mapper>

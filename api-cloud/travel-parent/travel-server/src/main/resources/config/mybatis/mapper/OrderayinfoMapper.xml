@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.OrderayinfoDao">
+
+    <resultMap id="orderayinfoResultMap" type="com.lazinesssheep.travel.entity.dto.Orderayinfo">
+        <id column="id" property="id"/> 
+        <result column="orderId" property="orderId"/> 
+        <result column="payName" property="payName"/> 
+        <result column="payAmount" property="payAmount"/> 
+        <result column="payTime" property="payTime"/> 
+        <result column="payStatus" property="payStatus"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="orderayinfoColumns">
+        t_order_payinfo.id AS "id",
+        t_order_payinfo.order_id AS "orderId",
+        t_order_payinfo.pay_name AS "payName",
+        t_order_payinfo.pay_amount AS "payAmount",
+        t_order_payinfo.pay_time AS "payTime",
+        t_order_payinfo.pay_status AS "payStatus",
+        t_order_payinfo.status AS "status",
+        t_order_payinfo.create_time AS "createTime",
+        t_order_payinfo.create_userid AS "createUserid",
+        t_order_payinfo.update_time AS "updateTime",
+        t_order_payinfo.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="orderayinfoJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="orderayinfoResultMap">
+        SELECT
+        <include refid="orderayinfoColumns" />
+        FROM t_order_payinfo <include refid="orderayinfoJoins" />
+        <where>
+        t_order_payinfo.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="orderayinfoResultMap">
+        SELECT
+        <include refid="orderayinfoColumns" />
+        FROM t_order_payinfo <include refid="orderayinfoJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="orderayinfoResultMap">
+        SELECT
+        <include refid="orderayinfoColumns" />
+        FROM t_order_payinfo <include refid="orderayinfoJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_order_payinfo(
+            id,
+            order_id,
+            pay_name,
+            pay_amount,
+            pay_time,
+            pay_status,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{orderId},
+            #{payName},
+            #{payAmount},
+            #{payTime},
+            #{payStatus},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_order_payinfo(
+            id,
+            order_id,
+            pay_name,
+            pay_amount,
+            pay_time,
+            pay_status,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="orderayinfo" separator =",">
+        (
+            #{orderayinfo.id},
+            #{orderayinfo.orderId},
+            #{orderayinfo.payName},
+            #{orderayinfo.payAmount},
+            #{orderayinfo.payTime},
+            #{orderayinfo.payStatus},
+            #{orderayinfo.status},
+            #{orderayinfo.createTime},
+            #{orderayinfo.createUserid},
+            #{orderayinfo.updateTime},
+            #{orderayinfo.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_order_payinfo SET
+        id = #{id},
+        order_id = #{orderId},
+        pay_name = #{payName},
+        pay_amount = #{payAmount},
+        pay_time = #{payTime},
+        pay_status = #{payStatus},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_order_payinfo
+        WHERE id = #{id}
+    </update>
+
+</mapper>

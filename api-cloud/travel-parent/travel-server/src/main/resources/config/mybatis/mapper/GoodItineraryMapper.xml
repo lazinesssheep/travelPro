@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazinesssheep.travel.dao.GoodItineraryDao">
+
+    <resultMap id="goodItineraryResultMap" type="com.lazinesssheep.travel.entity.dto.GoodItinerary">
+        <id column="id" property="id"/> 
+        <result column="goodId" property="goodId"/> 
+        <result column="duration" property="duration"/> 
+        <result column="countries" property="countries"/> 
+        <result column="ages" property="ages"/> 
+        <result column="startingPoint" property="startingPoint"/> 
+        <result column="endingPoint" property="endingPoint"/> 
+        <result column="introduction" property="introduction"/> 
+        <result column="status" property="status"/> 
+        <result column="createTime" property="createTime"/> 
+        <result column="createUserid" property="createUserid"/> 
+        <result column="updateTime" property="updateTime"/> 
+        <result column="updateUserid" property="updateUserid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="goodItineraryColumns">
+        t_good_itinerary.id AS "id",
+        t_good_itinerary.good_id AS "goodId",
+        t_good_itinerary.duration AS "duration",
+        t_good_itinerary.countries AS "countries",
+        t_good_itinerary.ages AS "ages",
+        t_good_itinerary.starting_point AS "startingPoint",
+        t_good_itinerary.ending_point AS "endingPoint",
+        t_good_itinerary.introduction AS "introduction",
+        t_good_itinerary.status AS "status",
+        t_good_itinerary.create_time AS "createTime",
+        t_good_itinerary.create_userid AS "createUserid",
+        t_good_itinerary.update_time AS "updateTime",
+        t_good_itinerary.update_userid AS "updateUserid"
+    </sql>
+
+    <sql id="goodItineraryJoins">
+        
+    </sql>
+
+    <select id="get" resultMap="goodItineraryResultMap">
+        SELECT
+        <include refid="goodItineraryColumns" />
+        FROM t_good_itinerary <include refid="goodItineraryJoins" />
+        <where>
+        t_good_itinerary.id = #{id}
+        </where>
+    </select>
+
+    <select id="findList" resultMap="goodItineraryResultMap">
+        SELECT
+        <include refid="goodItineraryColumns" />
+        FROM t_good_itinerary <include refid="goodItineraryJoins" />
+        <where>
+        </where>
+    </select>
+
+    <select id="findAllList" resultMap="goodItineraryResultMap">
+        SELECT
+        <include refid="goodItineraryColumns" />
+        FROM t_good_itinerary <include refid="goodItineraryJoins" />
+        <where>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_good_itinerary(
+            id,
+            good_id,
+            duration,
+            countries,
+            ages,
+            starting_point,
+            ending_point,
+            introduction,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES (
+            #{id},
+            #{goodId},
+            #{duration},
+            #{countries},
+            #{ages},
+            #{startingPoint},
+            #{endingPoint},
+            #{introduction},
+            #{status},
+            #{createTime},
+            #{createUserid},
+            #{updateTime},
+            #{updateUserid}
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_good_itinerary(
+            id,
+            good_id,
+            duration,
+            countries,
+            ages,
+            starting_point,
+            ending_point,
+            introduction,
+            status,
+            create_time,
+            create_userid,
+            update_time,
+            update_userid
+        )
+        VALUES
+        <foreach collection ="list" item="goodItinerary" separator =",">
+        (
+            #{goodItinerary.id},
+            #{goodItinerary.goodId},
+            #{goodItinerary.duration},
+            #{goodItinerary.countries},
+            #{goodItinerary.ages},
+            #{goodItinerary.startingPoint},
+            #{goodItinerary.endingPoint},
+            #{goodItinerary.introduction},
+            #{goodItinerary.status},
+            #{goodItinerary.createTime},
+            #{goodItinerary.createUserid},
+            #{goodItinerary.updateTime},
+            #{goodItinerary.updateUserid}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_good_itinerary SET
+        id = #{id},
+        good_id = #{goodId},
+        duration = #{duration},
+        countries = #{countries},
+        ages = #{ages},
+        starting_point = #{startingPoint},
+        ending_point = #{endingPoint},
+        introduction = #{introduction},
+        status = #{status},
+        create_time = #{createTime},
+        create_userid = #{createUserid},
+        update_time = #{updateTime},
+        update_userid = #{updateUserid}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_good_itinerary
+        WHERE id = #{id}
+    </update>
+
+</mapper>
